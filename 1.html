@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+  <title>Rau</title>
+
+  <!-- slider stylesheet -->
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.3/assets/owl.carousel.min.css" />
+  <script language="javascript" src="rau.js"></script>
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="css1/bootstrap.css" />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:400,700|Raleway:400,500,700&display=swap"
+    rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="css1/style.css" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="css1/responsive.css" rel="stylesheet" />
+</head>
+
+<body class="sub_page" ng-app="myApp" ng-controller="myCtrl">
+
+  <div class="hero_area">
+    <!-- header section strats -->
+    <header class="header_section">
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg custom_nav-container ">
+          <a class="navbar-brand" href="index.html">
+            <img src="images/dong.jpg" alt="">
+          </a>
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="d-flex mx-auto flex-column flex-lg-row align-items-center">
+              <ul class="navbar-nav  ">
+                <li class="nav-item ">
+                  <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                </li>
+
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    Giỏ Hàng
+                  </a>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" ng-repeat="i in sanpham1"> <img src="{{i.img}}" width="50px"> Tên:
+                      {{i.ten}} Giá {{i.gia}}</a>
+                    <a class="dropdown-item" href="#">Tổng tiền: {{tongtien}}</a>
+                    <button type="button" class="btn btn-primary"> <a href="form.html" style="color: white;">Mua</a>
+                    </button>
+                  </div>
+                </li>
+
+                <li class="nav-item">
+                  <a class="nav-link" href="#" id="xoane">Xóa Giỏ hàng</a>
+                </li>
+                <li>
+                  <input class="form-control-sm" style="margin-top:30px;" id="myInput" type="text"
+                    placeholder="Search.." ng-model="searchText">
+                </li>
+
+
+              </ul>
+
+            </div>
+
+          </div>
+        </nav>
+      </div>
+    </header>
+    <!-- end header section -->
+  </div>
+
+  <!-- our ice cream section -->
+  <section class="our_section layout_padding">
+    <div class="container">
+      <div class="heading_container">
+        <h2>
+          <span>
+            Rau Sạch
+          </span>
+        </h2>
+      </div>
+      <!-- Sản phẩm -->
+      <div class="our_container" ng-controller="myCtrl" id="mySanpham">
+        <div class="box" ng-repeat="i in sanpham | filter:searchText|limitTo : num1 : num2">
+          <span class="img-box">
+            <img src="{{i.img}}" alt="">
+          </span>
+          <div class="detail-box">
+            <h5>
+              {{i.ten}}
+            </h5>
+            <p style="font-weight: bold;text-align: center;color: red;font-size: x-large;">{{i.gia}} VND</p>
+            <!-- <p>
+              100% Fresh <br>
+              Xuất xứ: Việt Nam <br>
+              HSD: 2-3 ngày ( Bảo quản lạnh )  
+            </p> -->
+            <a href="" ng-click="addTodo(i.ten, i.gia,i.img)" onclick="Mua()" id="total">
+              Mua
+            </a>
+          </div>
+        </div>
+        <!-- Kết thúc Sản phẩm -->
+      </div>
+      <div class="row text-center">
+        <div class="col-md-12">
+          <ul>
+            <li ng-click="firstpage()" style="background-color: aqua;
+            width: 50px;height: 50px;list-style-type: none;float: left;">Đầu</li>
+            <li ng-repeat="x in page_number" ng-click="swappage(x)" style="background-color: aqua;
+            width: 50px;height: 50px;list-style-type: none;float: left;">{{x}}</li>
+            <li ng-click="lastpage()" style="background-color: aqua;
+            width: 50px;height: 50px;list-style-type: none;float: left;">Cuối</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- end our ice cream section -->
+
+  <!-- source sản phẩm -->
+
+
+  <!-- info section -->
+  <section class="info_section ">
+    <div class="container">
+      <div class="info_container">
+        <div class="info_social">
+          <div class="d-flex justify-content-center">
+            <h3 class="">
+              Contact Us
+            </h3>
+          </div>
+          <div class="social_box">
+            <a href="">
+              <img src="images/fb.png" alt="">
+            </a>
+            <a href="">
+              <img src="images/twitter.png" alt="">
+            </a>
+            <a href="">
+              <img src="images/linkedin.png" alt="">
+            </a>
+            <a href="">
+              <img src="images/instagram.png" alt="">
+            </a>
+          </div>
+        </div>
+        <div class="info_form">
+          <form action="">
+            <input type="text" id="email2" placeholder="Enter Your Email">
+            <button>
+              subscribe
+            </button>
+          </form>
+        </div>
+        <div class="info_contact layout_padding2">
+          <div class="row">
+            <div class="col-md-4">
+              <a class="link-box">
+                <div class="img-box">
+                  <img src="images/location.png" alt="">
+                </div>
+                <div class="detail-box">
+                  <h6>
+                    12,Trinh Dinh Thao, Tan Phu, Ho Chi Minh City
+                  </h6>
+                </div>
+              </a>
+            </div>
+            <div class="col-md-4">
+              <a class="link-box">
+                <div class="img-box">
+                  <img src="images/phone.png" alt="">
+                </div>
+                <div class="detail-box">
+                  <h6>
+                    +84 837832901
+                  </h6>
+                </div>
+              </a>
+            </div>
+            <div class="col-md-4">
+              <a class="link-box">
+                <div class="img-box">
+                  <img src="images/mail.png" alt="">
+                </div>
+                <div class="detail-box">
+                  <h6>
+                    @gmail.com
+                  </h6>
+                </div>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- end info_section -->
+
+  <!-- footer section -->
+  <section class="container-fluid footer_section">
+    <div class="container">
+      <p>
+        &copy; 2021 All Rights Reserved By
+        <a href="https://facebook.com/">Dongdeptraimedoiqua</a>
+      </p>
+    </div>
+  </section>
+  <!-- footer section -->
+
+  <script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function ($scope) {
+      $scope.sanpham = [
+        { img: "images/hanhla.jpg", ten: "Hành", gia: 50000 },
+        { img: "images/raumuong.jpg", ten: "Rau Muống", gia: 40000 },
+        { img: "images/Rau-Sach-An-Toan---Cai-Ngong-removebg-preview.png", ten: "Rau Lan", gia: 30000 },
+        { img: "images/ngogai.jpg", ten: "Ngò Gai", gia: 20000 },
+        { img: "images/Tac-Dung-Hanh-Onion.jpg", ten: "Hành Tây", gia: 10000 },
+        { img: "images/caingot.jpg", ten: "Cải Ngọt", gia: 10000 },
+        { img: "images/cay-rau-dang.jpg", ten: "Rau Đắng", gia: 10000 },
+        { img: "images/caiboxoi.jpeg", ten: "Cải Bó Xôi", gia: 10000 },
+        { img: "images/carot.jpg", ten: "Cà Rốt", gia: 10000 },
+        { img: "images/bap.jpg", ten: "Bắp", gia: 10000 },
+        { img: "images/rauden.jpg", ten: "Rau Dền", gia: 10000 },
+        { img: "images/Rau-cang-cua.jpg", ten: "Rau Càng Cua", gia: 10000 },
+        { img: "images/rau-ngo.jpg", ten: "Rau Ngố", gia: 10000 },
+        { img: "images/rau-ram.jpg", ten: "Rau Râm", gia: 10000 },
+        { img: "images/rauma.jpg", ten: "Rau Má", gia: 10000 },
+        { img: "images/salat.jpg", ten: "Salat", gia: 10000 },
+        { img: "images/cachua.jpg", ten: "Cà Chua", gia: 10000 },
+        { img: "images/bi.jpg", ten: "Bí", gia: 10000 },
+        { img: "images/khoailang.jfif", ten: "Khoai Lang", gia: 10000 },
+        { img: "images/su-hao-1.jpg", ten: "Su Hào", gia: 10000 },
+        { img: "images/cu-cai-trang-scaled.jpg", ten: "Củ Cải Trắng", gia: 10000 },
+        { img: "images/daucove.jfif", ten: "Đậu cove", gia: 10000 },
+        { img: "images/gung.jpg", ten: "Gừng", gia: 10000 },
+        { img: "images/ot.jpg", ten: "Ớt", gia: 10000 },
+        { img: "images/otchuong.jpg", ten: "Ớt Chuông", gia: 10000 },
+        { img: "images/dua.jpg", ten: "Dừa", gia: 10000 },
+        { img: "images/duahau.jpg", ten: "Dưa Hấu", gia: 10000 },
+        { img: "images/duagang.jfif", ten: "Dưa Gang", gia: 10000 },
+        { img: "images/sau-rieng.jpg", ten: "Sầu Riêng", gia: 10000 },
+      ]
+
+      //Phân trang
+      $scope.count_item = $scope.sanpham.length;// tổng số sản phẩm(20)
+      $scope.product_in_onepage = 6;//số sản phẩm ở 1 trang
+      $scope.count_page = Math.ceil($scope.count_item / $scope.product_in_onepage);//tổng số trang(4)
+      $scope.page_number = []
+      for (var i = 1; i <= $scope.count_page; i++) {
+        $scope.page_number.push(i);
+      }
+      $scope.num1 = $scope.product_in_onepage;
+      $scope.swappage = function (i) {
+        $scope.num2 = (i - 1) * $scope.product_in_onepage;
+        return $scope.num2;
+      }
+      $scope.firstpage = function () {
+        $scope.num2 = 0;
+      }
+      $scope.lastpage = function () {
+        $scope.num2 = ($scope.page_number.length - 1) * $scope.product_in_onepage;
+      }
+      // THEM SAN PHAM
+
+      $scope.saved = localStorage.getItem('todos');
+      $scope.sanpham1 = (localStorage.getItem('todos') !== null) ? JSON.parse($scope.saved) : [
+      ];
+
+      $scope.addTodo = function (ten, gia, img) {
+      $scope.sanpham1.push({
+          img: img,
+          ten: ten,
+          gia: gia,
+          // done: false
+        });
+        localStorage.setItem('todos', JSON.stringify($scope.sanpham1));
+      };
+      // Tính tổng tiền
+      $scope.tongtien = $scope.sanpham1.reduce((star, person) => {
+        return parseInt(star) + parseInt(person.gia);
+      }, 0);
+      // xóa và load lại trang
+      document.getElementById("xoane").onclick = function xoa() {
+        //deletes all stickies from dom and storage
+        localStorage.clear();
+        location.reload(); //clear all from storage
+      };
+    }
+    );
+  </script>
+  <!-- end -->
+  <script type="text/javascript" src="jss/jquery-3.4.1.min.js"></script>
+  <script type="text/javascript" src="jss/bootstrap.js"></script>
+</body>
+</html>

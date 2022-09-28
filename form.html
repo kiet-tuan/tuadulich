@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+</head>
+
+<body ng-app="myapp" ng-controller="myCtrl" class="container">
+  <ul class="list-group">
+    <li class="list-group-item" ng-repeat="i in u"><span style="font-weight: bolder;">{{i.ten}}</span> Giá: <span
+        style="font-weight: bolder;">{{i.gia}}</span> </li>
+    <li class="list-group-item"> <span style="font-weight: bolder;">Tổng:</span> <span
+        style="font-weight: bolder;color: red;">{{tong}}</span> VND </li>
+
+  </ul>
+
+  <form name="dong" class="was-validated">
+    <label for="fname">Họ tên:</label></br>
+    <input value="" name="uname" ng-model="fullname" type="text" class="form-control" id="uname"
+      placeholder="Nhập tên !" required ng-model-options="{updateOn:'blur'}"></br>
+
+
+    <label for="fname">Địa chỉ:</label></br>
+    <input value="" name="uadress" ng-model="fulladress" type="text" class="form-control" id="uadress"
+      placeholder="Nhập Địa chỉ !" required></br>
+
+
+    <label for="fname">Số điện thoại:</label></br>
+    <input value="" name="uphone" ng-model="fullphone" type="number" class="form-control" id="uname"
+      placeholder="Nhập Số điện thoại !" required></br>
+
+  </form>
+  </br>
+  <button ng-click="myFuntion()"> Đặt hàng </buton>
+
+    </br>
+
+    <script>
+
+      var app = angular.module('myapp', []);
+
+      app.controller('myCtrl', function ($scope) {
+
+
+
+        var c = localStorage.getItem('todos');
+
+        var obj = JSON.parse(c);
+        $scope.u = [];
+        $scope.u = obj.concat();
+
+        $scope.tong = obj.reduce((star, person) => {
+          return parseInt(star) + parseInt(person.gia);
+        }, 0);
+
+
+        $scope.myFuntion = function () {
+          if ((($scope.fullname).value !== "") && (($scope.fulladress).value !== "") && (($scope.fullphone).value !== "") && $scope.u !== []) {
+            alert("Thông tin đơn hàng:\n" +
+              "Tên:" + $scope.fullname + "\n" +
+              "Địa chỉ: " + $scope.fulladress + "\n" +
+              "Số điện thoại: " + $scope.fullphone + "\n" + "\n"
+
+              + "Cảm ơn bạn đã đặt hàng !");
+            location.reload();
+            localStorage.clear();
+            $scope.tong = 0;
+            window.location = "rauloai1.html";
+          };
+
+
+
+        };
+      });
+
+// </script>
+
+    <!-- <script>
+document.addEventListener('storage', (e) => {  
+    if(e.key === 'todos') {
+       // Do whatever you want
+       location.reload()
+    }
+});  -->
+
+    </script>
+
+
+</body>
+
+</html>
